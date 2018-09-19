@@ -17,11 +17,20 @@ export class AuthenticationService {
         'Authorization': 'Basic '+unAndPwBase64})
     }
 
-    return this.http.get<any>('/users/login', headers).subscribe(result =>{
-      console.log(result);
-    }, err=>{
+    // return this.http.get<any>('/users/login', headers).subscribe(result =>{
+    //   console.log(result);
+    // }, err=>{
+    //   console.log(err);
+    // });
+    return this.http.get<any>('/users/login', headers)
+    .pipe(map(user=>{
+      if(user){
+        localStorage.setItem('currentUser',JSON.stringify(user));
+      }
+      return user;
+    },err=>{
       console.log(err);
-    });
+    }));
   }
   logout(){
     localStorage.removeItem('currentUser');
