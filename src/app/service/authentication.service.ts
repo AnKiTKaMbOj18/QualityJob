@@ -24,7 +24,7 @@ export class AuthenticationService {
     // });
     return this.http.get<any>('/users/login', headers)
     .pipe(map(user=>{
-      if(user){
+      if(user ){
         localStorage.setItem('currentUser',JSON.stringify(user));
       }
       return user;
